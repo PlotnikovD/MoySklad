@@ -12,7 +12,7 @@ public class Storage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "id", length = 100)
+    @Column(name = "name", length = 100)
     private String name;
 
     @ManyToMany

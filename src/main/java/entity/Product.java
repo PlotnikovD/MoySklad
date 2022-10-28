@@ -14,6 +14,8 @@ public class Product {
     private Long id;
     @Column(name = "code", length = 100)
     private String code;
+    @Column(name = "name", length = 100)
+    private String name;
     @Column(name = "last_purchase_price")
     private Double lastPurchasePrice;
     @Column(name = "last_sale_price")
@@ -29,9 +31,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String code, Double lastPurchasePrice, Double lastSalePrice) {
+    public Product(Long id, String code, String name, Double lastPurchasePrice, Double lastSalePrice) {
         this.id = id;
         this.code = code;
+        this.name = name;
         this.lastPurchasePrice = lastPurchasePrice;
         this.lastSalePrice = lastSalePrice;
     }
@@ -51,6 +54,15 @@ public class Product {
 
     public Product setCode(String code) {
         this.code = code;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Product setName(String name) {
+        this.name = name;
         return this;
     }
 
