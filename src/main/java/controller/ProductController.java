@@ -2,6 +2,7 @@ package controller;
 
 import controller.dto.ProductRequestDto;
 import controller.dto.ProductResponseDto;
+import entity.Product;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import service.ProductService;
@@ -17,15 +18,19 @@ public class ProductController {
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
-
     @GetMapping
     public List<ProductResponseDto> getAllProducts() {
         return productService.getAll().stream().map(ProductResponseDto::new).collect(Collectors.toList());
     }
-
     @PostMapping("/products")
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
         return productService.createProduct(productRequestDto);
 
     }
+    @PutMapping("/update")
+    public Product update(@RequestBody Product product){
+        productService.update(product);
+        return product;
+    }
+    
 }
