@@ -1,5 +1,7 @@
 package service;
 
+import controller.dto.ProductRequestDto;
+import controller.dto.ProductResponseDto;
 import entity.Product;
 import org.springframework.stereotype.Service;
 import repository.ProductRepository;
@@ -13,8 +15,13 @@ public class ProductService {
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
-    public List<Product> getAll(){
+    public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
+        Product product = new Product(productRequestDto.getCode(), productRequestDto.getName(),
+                productRequestDto.getLastPurchasePrice(), productRequestDto.getLastSalePrice());
+        productRepository.save(product);
+        return new ProductResponseDto(product);
+    }
+    public List<Product> getAll() {
         return productRepository.findAll();
     }
 }

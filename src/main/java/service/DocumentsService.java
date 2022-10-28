@@ -3,5 +3,5 @@ package service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StorageServise {
+public class DocumentsService {
 }
