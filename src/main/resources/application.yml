@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/moysklad_db
+    username: postgres
+    password: bbr2wc
+  jpa:
+    show-sql: true
+  liquibase:
+    change-log: classpath:liquibase/changelog.yml

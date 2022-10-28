@@ -1,0 +1,104 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: initFirstTables
+      author: plotnikovD
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: code
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+              - column:
+                  name: last_purchase_price
+                  type: double
+              - column:
+                  name: last_sale_price
+                  type: double
+
+        - createTable:
+            tableName: storage
+            columns:
+              - column:
+                  name: id
+                  constraints:
+                    primaryKey: true
+                  type: bigint
+              - column:
+                  name: name
+                  type: varchar(100)
+
+        - createTable:
+            tableName: documents
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: moving_from
+                  type: varchar(100)
+              - column:
+                  name: moving_to
+                  type: varchar(100)
+              - column:
+                  name: info
+                  type: jsonb
+              - column:
+                  name: type
+                  type: varchar(50)
+
+        - createTable: #many-to-many ref product-storage
+            tableName: prod_store
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: product_id
+                  type: bigint
+              - column:
+                  name: storage_id
+                  type: bigint
+              - column:
+                  name: count
+                  type: int
+
+        -  addForeignKeyConstraint:
+             baseColumnNames: product_id
+             baseTableName:  prod_store
+             baseTableSchemaName:  public
+             constraintName:  fk_product_prod_store_id
+             referencedColumnNames: id
+             referencedTableName:  product
+             referencedTableSchemaName:  public
+
+        -  addForeignKeyConstraint:
+             baseColumnNames: storage_id
+             baseTableName:  prod_store
+             baseTableSchemaName:  public
+             constraintName:  fk_storage_prod_store_id
+             referencedColumnNames: id
+             referencedTableName:  storage
+             referencedTableSchemaName:  public
+
+
+#     создать гет запрос с path variable и второй гет запрос в бд под кадждый отчет
+#     разнести по классам логику: контроллер обратаывает запрос с постмана, передает дто обьект в сервис,
+# сервис сохораняет или получвет данные с бд
