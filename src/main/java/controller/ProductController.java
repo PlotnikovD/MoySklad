@@ -3,11 +3,18 @@ package controller;
 import controller.dto.ProductRequestDto;
 import controller.dto.ProductResponseDto;
 import entity.Product;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import service.ProductService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,8 +36,8 @@ public class ProductController {
     }
     @PutMapping("/update")
     public Product update(@RequestBody Product product){
-        productService.update(product);
+        productService.updateProduct(product);
         return product;
     }
-    
+
 }

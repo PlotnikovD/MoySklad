@@ -28,7 +28,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void update(Product product) {
+    public void updateProduct(Product product) {
         Product updateProduct = productRepository.findById(product.getId())
                 .orElseThrow(() -> new ProductNotFoundException("PRODUCT_NOT_FOUND"));
         updateProduct.setCode(product.getCode());
@@ -36,5 +36,10 @@ public class ProductService {
         updateProduct.setLastPurchasePrice(product.getLastPurchasePrice());
         updateProduct.setLastSalePrice(product.getLastSalePrice());
         productRepository.save(updateProduct);
+    }
+
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+
     }
 }
