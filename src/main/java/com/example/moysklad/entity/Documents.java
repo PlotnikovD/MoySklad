@@ -1,20 +1,32 @@
 package com.example.moysklad.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "documents")
+@TypeDefs({
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+})
 public class Documents {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "moving_from")
-    private String movingFrom;
-    @Column(name = "moving_to")
-    private String movingTo;
-    @Column(name = "info")
+    @ManyToOne
+    @JoinColumn(name = "first_storage_id", nullable = false, updatable = false)
+    private Storage firstStorage;
+    @ManyToOne
+    @JoinColumn(name = "second_storage_id", nullable = false, updatable = false)
+    private Storage secondStorage;
+
+    @Type(type = "jsonb")
+    @Column(name = "info", columnDefinition = "jsonb")
     private List<ProductInfo> info;
     @Column(name = "type")
     private String type;
@@ -22,11 +34,11 @@ public class Documents {
     public Documents() {
     }
 
-    public Documents(Long id, String movingFrom, String movingTo, Object info, String type) {
+    public Documents(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfo> info, String type) {
         this.id = id;
-        this.movingFrom = movingFrom;
-        this.movingTo = movingTo;
-        //this.info = info;
+        this.firstStorage = firstStorage;
+        this.secondStorage = secondStorage;
+        this.info = info;
         this.type = type;
     }
 
@@ -39,51 +51,51 @@ public class Documents {
         return this;
     }
 
-    public String getMovingFrom() {
-        return movingFrom;
+    public Storage getFirstStorage() {
+        return firstStorage;
     }
 
-    public Documents setMovingFrom(String movingFrom) {
-        this.movingFrom = movingFrom;
+    public Documents setFirstStorage(Storage firstStorage) {
+        this.firstStorage = firstStorage;
         return this;
     }
 
-    public String getMovingTo() {
-        return movingTo;
+    public Storage getSecondStorage() {
+        return secondStorage;
     }
 
-    public Documents setMovingTo(String movingTo) {
-        this.movingTo = movingTo;
+    public Documents setSecondStorage(Storage secondStorage) {
+        this.secondStorage = secondStorage;
         return this;
     }
 
-/*    public Object getInfo() {
+    public List<ProductInfo> getInfo() {
         return info;
-    }*/
+    }
 
-/*    public Documents setInfo(Object info) {
+    public Documents setInfo(List<ProductInfo> info) {
         this.info = info;
         return this;
-    }*/
+    }
 
     public String getType() {
         return type;
-    }
-
-    public Documents setType(String type) {
-        this.type = type;
-        return this;
     }
 
     @Override
     public String toString() {
         return "Documents{" +
                 "id=" + id +
-                ", movingFrom='" + movingFrom + '\'' +
-                ", movingTo='" + movingTo + '\'' +
-                ", info=" + //info +
+                ", firstStorage=" + firstStorage +
+                ", secondStorage=" + secondStorage +
+                ", info=" + info +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    public Documents setType(String type) {
+        this.type = type;
+        return this;
     }
 
     public static class ProductInfo {
@@ -99,7 +111,8 @@ public class Documents {
             this.cost = cost;
         }
     }
-    public enum Type {
+
+    public enum Types {
         GET, SELL, TRANSFER
     }
 

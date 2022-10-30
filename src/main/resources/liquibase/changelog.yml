@@ -33,12 +33,14 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
+                  type: bigint
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
-                  type: bigint
               - column:
                   name: name
                   type: varchar(100)
+
 
         - createTable:
             tableName: documents
@@ -50,17 +52,29 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: moving_from
-                  type: varchar(100)
+                  name: first_storage_id
+                  type: bigint
               - column:
-                  name: moving_to
-                  type: varchar(100)
+                  name: second_storage_id
+                  type: bigint
               - column:
                   name: info
                   type: jsonb
               - column:
                   name: type
                   type: varchar(50)
+              - addForeignKeyConstraint:
+                  baseTableName: storage
+                  baseColumnNames: first_storage_id
+                  referencedTableName: documents
+                  referencedColumnNames: id
+                  constraintName: documents_first_storage_fk
+              - addForeignKeyConstraint:
+                  baseTableName: storage
+                  baseColumnNames: second_storage_id
+                  referencedTableName: documents
+                  referencedColumnNames: id
+                  constraintName: documents_second_storage_fk
 
         - createTable: #many-to-many ref product-storage
             tableName: prod_store
@@ -99,6 +113,3 @@ databaseChangeLog:
              referencedTableSchemaName:  public
 
 
-#     создать гет запрос с path variable и второй гет запрос в бд под кадждый отчет
-#     разнести по классам логику: контроллер обратаывает запрос с постмана, передает дто обьект в сервис,
-# сервис сохораняет или получвет данные с бд

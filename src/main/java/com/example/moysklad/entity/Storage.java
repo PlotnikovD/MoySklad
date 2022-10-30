@@ -22,6 +22,9 @@ public class Storage {
     @JsonIgnore
     private List<Product> products;
 
+    public Storage(String name) {
+    }
+
     public Storage() {
     }
 

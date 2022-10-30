@@ -29,6 +29,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product> getAllByName(String name) {
+       return productRepository.findByName(name);
+    }
+
     public void updateProduct(Product product) {
         Product updateProduct = productRepository.findById(product.getId())
                 .orElseThrow(() -> new ProductNotFoundException("PRODUCT_NOT_FOUND"));
