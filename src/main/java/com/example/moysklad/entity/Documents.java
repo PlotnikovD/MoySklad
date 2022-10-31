@@ -102,21 +102,4 @@ public class Documents {
         return this;
     }
 
-/*    public static class ProductInfo {
-        private final Long id;
-        private final Integer count;
-        private final String name;
-        private final Double cost;
-        public ProductInfo(Long id, Integer count, String name, Double cost) {
-            this.id = id;
-            this.count = count;
-            this.name = name;
-            this.cost = cost;
-        }
-    }
-
-    public enum Types {
-        GET, SELL, TRANSFER
-    }*/
-
 }
