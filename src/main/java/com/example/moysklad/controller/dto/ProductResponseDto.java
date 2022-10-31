@@ -11,11 +11,9 @@ import javax.validation.constraints.Size;
 public class ProductResponseDto {
     @NotNull
     private final Long id;
-    @NotNull(message = "Поле code не должно быть null.")
     @NotBlank(message = "Поле code не должно быть пустым.")
     @Size(min = 1, max = 100, message = "Длина поля code должно быть от 1 до 100 символ.")
     private final String code;
-    @NotNull(message = "Поле name не должно быть null.")
     @NotBlank(message = "Поле name не должно быть пустым.")
     @Size(min = 1, max = 100, message = "Длина поля name должно быть от 1 до 100 символ.")
     private final String name;

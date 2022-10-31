@@ -10,6 +10,4 @@ import java.util.List;
 @Repository
 public interface StorageRepository extends CrudRepository<Storage, Long> {
     List<Storage> findAll();
-
-
 }

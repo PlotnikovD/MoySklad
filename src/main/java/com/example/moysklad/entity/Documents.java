@@ -1,27 +1,32 @@
 package com.example.moysklad.entity;
 
 import com.example.moysklad.controller.dto.ProductInfoDto;
-import com.example.moysklad.controller.dto.StorageRequestDto;
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "documents")
 @TypeDefs({
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class),
+        @TypeDef(name = "string-array", typeClass = StringArrayType.class
+        )
 })
-public class Documents {
+
+public class Documents implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "first_storage_id", nullable = false, updatable = false)
+    @Type(type = "string-array")
     private Storage firstStorage;
     @ManyToOne
     @JoinColumn(name = "second_storage_id", nullable = false, updatable = false)

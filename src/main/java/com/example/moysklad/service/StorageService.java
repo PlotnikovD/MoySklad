@@ -1,9 +1,6 @@
 package com.example.moysklad.service;
 
-import com.example.moysklad.controller.dto.ProductCountResponseDto;
-import com.example.moysklad.controller.dto.ProductInfoDto;
-import com.example.moysklad.controller.dto.StorageRequestDto;
-import com.example.moysklad.controller.dto.StorageResponseDto;
+import com.example.moysklad.controller.dto.*;
 import com.example.moysklad.entity.Documents;
 import com.example.moysklad.entity.Product;
 import com.example.moysklad.entity.Storage;
@@ -35,7 +32,6 @@ public class StorageService {
         storageRepository.save(storage);
         return new StorageResponseDto(storage);
     }
-
 
     public List<Storage> getAll() {
         List<Storage> storages = storageRepository.findAll();
@@ -83,9 +79,8 @@ public class StorageService {
             });
         }
         List<Product> products = productRepository.findByIdIn(productHashMap.keySet());
-        return products.stream().map(product -> {
-            return new ProductCountResponseDto(product, productHashMap.get(product.getId()));
-        }).collect(Collectors.toList());
+        return products.stream().map(product ->
+                new ProductCountResponseDto(product, productHashMap.get(product.getId()))).collect(Collectors.toList());
     }
 
     public void updateStorage(Storage storage) {
@@ -95,7 +90,9 @@ public class StorageService {
         storageRepository.save(updateStorage);
     }
     public void deleteStorage(Long id){
-        storageRepository.deleteById(id);
+        Storage storage = storageRepository.findById(id)
+                .orElseThrow(()-> new StorageNotFoundException("STORAGE_BY_ID_" + id + "_DOES_NOT_EXIST "));
+        storageRepository.delete(storage);
     }
 
 }

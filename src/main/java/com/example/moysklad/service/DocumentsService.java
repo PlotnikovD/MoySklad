@@ -24,11 +24,11 @@ public class DocumentsService {
 
     public DocumentsResponseDto createDocument(DocumentsRequestDto documentsRequestDto) {
         Storage firstStorage = storageRepository.findById(documentsRequestDto.getFirstStorage().getId())
-                .orElseThrow(() -> new StorageNotFoundException("STORAGE_NOT_FOUND"));
+                .orElseThrow(() -> new StorageNotFoundException("FIRST_STORAGE_NOT_FOUND"));
         Storage secondStorage = null;
         if(documentsRequestDto.getSecondStorage() != null) {
             secondStorage = storageRepository.findById(documentsRequestDto.getSecondStorage().getId())
-                    .orElseThrow(() -> new StorageNotFoundException("STORAGE_NOT_FOUND"));
+                    .orElseThrow(() -> new StorageNotFoundException("SECOND_STORAGE_NOT_FOUND"));
         }
         Documents documents = new Documents(firstStorage, secondStorage,
                 documentsRequestDto.getInfo(), documentsRequestDto.getType());
@@ -55,7 +55,9 @@ public class DocumentsService {
     }
 
     public void deleteDocument(Long id) {
-        documentsRepository.deleteById(id);
+        Documents documents = documentsRepository.findById(id)
+                .orElseThrow(()-> new DocumentNotFoundException("DOCUMENT_BY_ID_" + id + "_DOES_NOT_EXIST "));
+        documentsRepository.delete(documents);
     }
 }
 

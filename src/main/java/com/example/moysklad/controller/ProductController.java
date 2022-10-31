@@ -27,11 +27,11 @@ public class ProductController {
     }
 
     @GetMapping("/{name}")
-    public List<ProductResponseDto> getProductByName(@PathVariable String name) {
+    public List<ProductResponseDto> getProductByName(@Valid @PathVariable String name) {
         return productService.getAllByName(name).stream().map(ProductResponseDto::new).collect(Collectors.toList());
     }
     @PostMapping("/create")
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto) {
         return productService.createProduct(productRequestDto);
     }
     @PutMapping("/update")
@@ -40,7 +40,7 @@ public class ProductController {
         return product;
     }
     @DeleteMapping("/delete/{id}")
-    public List<ProductResponseDto> deleteById(@PathVariable Long id) {
+    public List<ProductResponseDto> deleteById(@Valid @PathVariable Long id) {
         productService.deleteProduct(id);
         return productService.getAll().stream().map(ProductResponseDto::new).collect(Collectors.toList());
 

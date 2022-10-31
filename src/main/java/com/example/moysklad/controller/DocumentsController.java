@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,16 +26,16 @@ public class DocumentsController {
         return documentsService.getAll().stream().map(DocumentsResponseDto::new).collect(Collectors.toList());
     }
     @PostMapping("/create")
-    public DocumentsResponseDto createDocument(@RequestBody DocumentsRequestDto documentsRequestDto){
+    public DocumentsResponseDto createDocument(@Valid @RequestBody DocumentsRequestDto documentsRequestDto){
         return documentsService.createDocument(documentsRequestDto);
     }
     @PutMapping("/update")
-    public Documents updateDocument(@RequestBody Documents documents){
+    public Documents updateDocument(@Valid @RequestBody Documents documents){
         documentsService.updateDocuments(documents);
         return documents;
     }
     @DeleteMapping("/delete/{id}")
-    public List<DocumentsResponseDto> deleteById(@PathVariable Long id){
+    public List<DocumentsResponseDto> deleteById(@Valid @PathVariable Long id){
         documentsService.deleteDocument(id);
         return documentsService.getAll().stream().map(DocumentsResponseDto::new).collect(Collectors.toList());
     }

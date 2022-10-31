@@ -1,6 +1,6 @@
 package com.example.moysklad.controller;
 
-import com.example.moysklad.controller.dto.ProductResponseDto;
+import com.example.moysklad.controller.dto.ProductCountResponseDto;
 import com.example.moysklad.controller.dto.StorageRequestDto;
 import com.example.moysklad.controller.dto.StorageResponseDto;
 import com.example.moysklad.entity.Storage;
@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,24 +28,24 @@ public class StorageController {
     public List<StorageResponseDto> getAllStorage() {
         return storageService.getAll().stream().map(StorageResponseDto::new).collect(Collectors.toList());
     }
-/*    @GetMapping("/{id}")
-    public List<ProductResponseDto> getProductByName(@PathVariable Long id) {
-        return storageService.getAllById(id).stream().map(ProductResponseDto::new).collect(Collectors.toList());
-    }*/
+    @GetMapping("info/{id}")
+    public List<ProductCountResponseDto> getInfoByStorageId(@Valid @PathVariable Long id) {
+        return storageService.findAllById(id);
+    }
 
     @PostMapping("/create")
-    public StorageResponseDto createStorage(@RequestBody StorageRequestDto storageRequestDto) {
+    public StorageResponseDto createStorage(@Valid @RequestBody StorageRequestDto storageRequestDto) {
         return storageService.createStorage(storageRequestDto);
     }
 
     @PutMapping("/update")
-    public Storage update(@RequestBody Storage storage) {
+    public Storage update(@Valid @RequestBody Storage storage) {
         storageService.updateStorage(storage);
         return storage;
     }
 
     @DeleteMapping("/delete/{id}")
-    public List<StorageResponseDto> deleteById(@PathVariable Long id) {
+    public List<StorageResponseDto> deleteById(@Valid @PathVariable Long id) {
         storageService.deleteStorage(id);
         return storageService.getAll().stream().map(StorageResponseDto::new).collect(Collectors.toList());
     }
