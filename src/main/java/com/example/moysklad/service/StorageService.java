@@ -18,10 +18,12 @@ public class StorageService {
     }
 
     public StorageResponseDto createStorage(StorageRequestDto storageRequestDto) {
-        Storage storage = new Storage(storageRequestDto.getName());
+        Storage storage = new Storage()
+                .setName(storageRequestDto.getName());
         storageRepository.save(storage);
         return new StorageResponseDto(storage);
     }
+
 
     public List<Storage> getAll() {
         return storageRepository.findAll();

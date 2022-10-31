@@ -19,8 +19,11 @@ public class ProductService {
     }
 
     public ProductResponseDto createProduct(ProductRequestDto productRequestDto) {
-        Product product = new Product(productRequestDto.getCode(), productRequestDto.getName(),
-                productRequestDto.getLastPurchasePrice(), productRequestDto.getLastSalePrice());
+        Product product = new Product()
+                .setCode(productRequestDto.getCode())
+                .setName(productRequestDto.getName())
+                .setLastPurchasePrice(productRequestDto.getLastPurchasePrice())
+                .setLastSalePrice(productRequestDto.getLastSalePrice());
         productRepository.save(product);
         return new ProductResponseDto(product);
     }
@@ -30,7 +33,7 @@ public class ProductService {
     }
 
     public List<Product> getAllByName(String name) {
-       return productRepository.findByName(name);
+        return productRepository.findByName(name);
     }
 
     public void updateProduct(Product product) {
@@ -43,7 +46,7 @@ public class ProductService {
         productRepository.save(updateProduct);
     }
 
-    public void deleteProduct(Long id){
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
 
     }

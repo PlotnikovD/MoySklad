@@ -32,7 +32,6 @@ public class Product {
     }
 
     public Product(String code, String name, Double lastPurchasePrice, Double lastSalePrice) {
-        this.id = id;
         this.code = code;
         this.name = name;
         this.lastPurchasePrice = lastPurchasePrice;
