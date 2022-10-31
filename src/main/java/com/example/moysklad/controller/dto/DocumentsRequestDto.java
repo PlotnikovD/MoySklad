@@ -1,17 +1,18 @@
 package com.example.moysklad.controller.dto;
 
+import com.example.moysklad.entity.Storage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 public class DocumentsRequestDto {
-    private final Long firstStorage;
-    private final Long secondStorage;
+    private final Storage firstStorage;
+    private final Storage secondStorage;
     private final List<ProductInfoDto> info;
     private final String type;
 
-    public DocumentsRequestDto(@JsonProperty("firstStorage") Long firstStorage,
-                               @JsonProperty("secondStorage") Long secondStorage,
+    public DocumentsRequestDto(@JsonProperty("firstStorage") Storage firstStorage,
+                               @JsonProperty("secondStorage") Storage secondStorage,
                                @JsonProperty("info") List<ProductInfoDto> info,
                                @JsonProperty("type") String type) {
         this.firstStorage = firstStorage;
@@ -21,11 +22,11 @@ public class DocumentsRequestDto {
     }
 
 
-    public Long getFirstStorage() {
+    public Storage getFirstStorage() {
         return firstStorage;
     }
 
-    public Long getSecondStorage() {
+    public Storage getSecondStorage() {
         return secondStorage;
     }
 

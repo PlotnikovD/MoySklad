@@ -1,5 +1,6 @@
 package com.example.moysklad.entity;
 
+import com.example.moysklad.controller.dto.ProductInfoDto;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -27,19 +28,22 @@ public class Documents {
 
     @Type(type = "jsonb")
     @Column(name = "info", columnDefinition = "jsonb")
-    private List<ProductInfo> info;
+    private List<ProductInfoDto> info;
     @Column(name = "type")
     private String type;
 
-    public Documents() {
+    public Documents(Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, String type) {
     }
 
-    public Documents(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfo> info, String type) {
+    public Documents(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, String type) {
         this.id = id;
         this.firstStorage = firstStorage;
         this.secondStorage = secondStorage;
         this.info = info;
         this.type = type;
+    }
+
+    public Documents() {
     }
 
     public Long getId() {
@@ -69,11 +73,11 @@ public class Documents {
         return this;
     }
 
-    public List<ProductInfo> getInfo() {
+    public List<ProductInfoDto> getInfo() {
         return info;
     }
 
-    public Documents setInfo(List<ProductInfo> info) {
+    public Documents setInfo(List<ProductInfoDto> info) {
         this.info = info;
         return this;
     }
@@ -98,12 +102,11 @@ public class Documents {
         return this;
     }
 
-    public static class ProductInfo {
+/*    public static class ProductInfo {
         private final Long id;
         private final Integer count;
         private final String name;
         private final Double cost;
-
         public ProductInfo(Long id, Integer count, String name, Double cost) {
             this.id = id;
             this.count = count;
@@ -114,6 +117,6 @@ public class Documents {
 
     public enum Types {
         GET, SELL, TRANSFER
-    }
+    }*/
 
 }
