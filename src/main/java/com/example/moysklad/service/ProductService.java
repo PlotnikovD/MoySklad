@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -29,16 +30,24 @@ public class ProductService {
     }
 
     public List<Product> getAll() {
+        List<Product> product = productRepository.findAll();
+        if (product.isEmpty()) {
+            throw new ProductNotFoundException("PRODUCT_LIST_IS_EMPTY");
+        }
         return productRepository.findAll();
     }
 
     public List<Product> getAllByName(String name) {
+        List<Product> product = productRepository.findByName(name);
+        if (product.isEmpty()) {
+            throw new ProductNotFoundException("PRODUCT_WITH_NAME_" + name.toUpperCase() + "_NOT FOUND");
+        }
         return productRepository.findByName(name);
     }
 
     public void updateProduct(Product product) {
         Product updateProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new ProductNotFoundException("PRODUCT_NOT_FOUND"));
+                .orElseThrow(() -> new ProductNotFoundException("PRODUCT_BY_ID_" + product.getId() + "_NOT_FOUND"));
         updateProduct.setCode(product.getCode());
         updateProduct.setName(product.getName());
         updateProduct.setLastPurchasePrice(product.getLastPurchasePrice());
@@ -47,7 +56,9 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("PRODUCT_BY_ID_" + id + "_DOES_NOT_EXIST "));
+        productRepository.delete(product);
 
     }
 }

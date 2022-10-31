@@ -1,6 +1,7 @@
 package com.example.moysklad.entity;
 
 import com.example.moysklad.controller.dto.ProductInfoDto;
+import com.example.moysklad.controller.dto.StorageRequestDto;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -30,12 +31,9 @@ public class Documents {
     @Column(name = "info", columnDefinition = "jsonb")
     private List<ProductInfoDto> info;
     @Column(name = "type")
-    private String type;
+    private ProductInfoDto.Types type;
 
-    public Documents(Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, String type) {
-    }
-
-    public Documents(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, String type) {
+    public Documents(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, ProductInfoDto.Types type) {
         this.id = id;
         this.firstStorage = firstStorage;
         this.secondStorage = secondStorage;
@@ -45,6 +43,11 @@ public class Documents {
 
     public Documents() {
     }
+
+    public Documents(Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, ProductInfoDto.Types type) {
+        this.firstStorage = firstStorage;
+    }
+
 
     public Long getId() {
         return id;
@@ -82,7 +85,7 @@ public class Documents {
         return this;
     }
 
-    public String getType() {
+    public ProductInfoDto.Types getType() {
         return type;
     }
 
@@ -97,7 +100,7 @@ public class Documents {
                 '}';
     }
 
-    public Documents setType(String type) {
+    public Documents setType(ProductInfoDto.Types type) {
         this.type = type;
         return this;
     }

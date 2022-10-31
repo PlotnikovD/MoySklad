@@ -12,17 +12,18 @@ public class DocumentsResponseDto {
     @NotNull
     private final Long id;
     @NotNull
-    private final Storage firstStorage;
-    @NotNull
-    private final Storage secondStorage;
+    private final StorageResponseDto firstStorage;
+
+    private final StorageResponseDto secondStorage;
     @NotNull(message = "Поле info  не полжно быть null.")
     private final List<ProductInfoDto> info;
-    @NotNull(message = "Поле type  не полжно быть null и иметь значение GET, SELL или TRANSFER.")
+
     @NotBlank(message = "Поле type  не должно быть пустым и иметь значение GET, SELL или TRANSFER.")
     @Size(min = 3, max = 8, message = "Поле type должно иметь значение GET, SELL или TRANSFER.")
-    private final String type;
+    private final ProductInfoDto.Types type;
 
-    public DocumentsResponseDto(Long id, Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, String type) {
+    public DocumentsResponseDto(Long id, StorageResponseDto firstStorage, StorageResponseDto secondStorage,
+                                List<ProductInfoDto> info, ProductInfoDto.Types type) {
         this.id = id;
         this.firstStorage = firstStorage;
         this.secondStorage = secondStorage;
@@ -32,8 +33,8 @@ public class DocumentsResponseDto {
 
     public DocumentsResponseDto(Documents documents) {
         this.id = documents.getId();
-        this.firstStorage = documents.getFirstStorage();
-        this.secondStorage = documents.getSecondStorage();
+        this.firstStorage = new StorageResponseDto(documents.getFirstStorage());
+        this.secondStorage = new StorageResponseDto(documents.getSecondStorage());
         this.info = documents.getInfo();
         this.type = documents.getType();
     }
@@ -42,11 +43,11 @@ public class DocumentsResponseDto {
         return id;
     }
 
-    public Storage getFirstStorage() {
+    public StorageResponseDto getFirstStorage() {
         return firstStorage;
     }
 
-    public Storage getSecondStorage() {
+    public StorageResponseDto getSecondStorage() {
         return secondStorage;
     }
 
@@ -54,7 +55,7 @@ public class DocumentsResponseDto {
         return info;
     }
 
-    public String getType() {
+    public ProductInfoDto.Types getType() {
         return type;
     }
 }

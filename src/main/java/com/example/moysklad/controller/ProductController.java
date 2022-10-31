@@ -3,15 +3,17 @@ package com.example.moysklad.controller;
 import com.example.moysklad.controller.dto.ProductRequestDto;
 import com.example.moysklad.controller.dto.ProductResponseDto;
 import com.example.moysklad.entity.Product;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.example.moysklad.service.ProductService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Validated
 @RequestMapping(value = "/api/v1/product", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProductController {
     private final ProductService productService;
@@ -33,7 +35,7 @@ public class ProductController {
         return productService.createProduct(productRequestDto);
     }
     @PutMapping("/update")
-    public Product update(/*@Valid*/@RequestBody Product product){
+    public Product update(@Valid @RequestBody Product product){
         productService.updateProduct(product);
         return product;
     }

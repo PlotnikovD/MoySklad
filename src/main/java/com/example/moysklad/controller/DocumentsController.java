@@ -5,12 +5,14 @@ import com.example.moysklad.controller.dto.DocumentsResponseDto;
 import com.example.moysklad.entity.Documents;
 import com.example.moysklad.service.DocumentsService;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@Validated
 @RequestMapping(value = "/api/v1/documents", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DocumentsController {
     private final DocumentsService documentsService;
