@@ -15,8 +15,7 @@ public class DocumentsRequestDto {
     private final StorageRequestDto secondStorage;
     @NotNull
     private final List<ProductInfoDto> info;
-    @NotBlank(message = "Поле type  не должно быть пустым и иметь значение GET, SELL или TRANSFER.")
-    @Size(min = 3, max = 8, message = "Поле type должно иметь значение GET, SELL или TRANSFER.")
+    @NotNull
     private final ProductInfoDto.Types type;
 
     public DocumentsRequestDto(@JsonProperty("firstStorage") StorageRequestDto firstStorage,

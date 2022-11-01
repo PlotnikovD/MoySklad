@@ -56,7 +56,7 @@ public class DocumentsService {
 
     public void deleteDocument(Long id) {
         Documents documents = documentsRepository.findById(id)
-                .orElseThrow(()-> new DocumentNotFoundException("DOCUMENT_BY_ID_" + id + "_DOES_NOT_EXIST "));
+                .orElseThrow(()-> new DocumentNotFoundException("DOCUMENT_BY_ID_" + id + "_DOES_NOT_EXIST"));
         documentsRepository.delete(documents);
     }
 }

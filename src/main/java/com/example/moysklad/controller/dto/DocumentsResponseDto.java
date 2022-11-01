@@ -1,7 +1,6 @@
 package com.example.moysklad.controller.dto;
 
 import com.example.moysklad.entity.Documents;
-import com.example.moysklad.entity.Storage;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,7 +33,9 @@ public class DocumentsResponseDto {
     public DocumentsResponseDto(Documents documents) {
         this.id = documents.getId();
         this.firstStorage = new StorageResponseDto(documents.getFirstStorage());
-        this.secondStorage = new StorageResponseDto(documents.getSecondStorage());
+        this.secondStorage = documents.getSecondStorage() != null ?
+                new StorageResponseDto(documents.getSecondStorage()) : null;
+        ;
         this.info = documents.getInfo();
         this.type = documents.getType();
     }

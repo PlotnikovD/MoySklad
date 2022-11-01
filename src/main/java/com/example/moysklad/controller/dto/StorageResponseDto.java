@@ -20,7 +20,6 @@ public class StorageResponseDto {
         this.name = storage.getName();
     }
 
-
     public Long getId() {
         return id;
     }

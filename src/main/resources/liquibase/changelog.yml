@@ -76,40 +76,4 @@ databaseChangeLog:
                   referencedColumnNames: id
                   constraintName: documents_second_storage_fk
 
-        - createTable: #many-to-many ref product-storage
-            tableName: prod_store
-            columns:
-              - column:
-                  name: id
-                  type: bigint
-                  constraints:
-                    primaryKey: true
-              - column:
-                  name: product_id
-                  type: bigint
-              - column:
-                  name: storage_id
-                  type: bigint
-              - column:
-                  name: count
-                  type: int
-
-        -  addForeignKeyConstraint:
-             baseColumnNames: product_id
-             baseTableName:  prod_store
-             baseTableSchemaName:  public
-             constraintName:  fk_product_prod_store_id
-             referencedColumnNames: id
-             referencedTableName:  product
-             referencedTableSchemaName:  public
-
-        -  addForeignKeyConstraint:
-             baseColumnNames: storage_id
-             baseTableName:  prod_store
-             baseTableSchemaName:  public
-             constraintName:  fk_storage_prod_store_id
-             referencedColumnNames: id
-             referencedTableName:  storage
-             referencedTableSchemaName:  public
-
 

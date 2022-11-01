@@ -91,7 +91,7 @@ public class StorageService {
     }
     public void deleteStorage(Long id){
         Storage storage = storageRepository.findById(id)
-                .orElseThrow(()-> new StorageNotFoundException("STORAGE_BY_ID_" + id + "_DOES_NOT_EXIST "));
+                .orElseThrow(()-> new StorageNotFoundException("STORAGE_BY_ID_" + id + "_DOES_NOT_EXIST"));
         storageRepository.delete(storage);
     }
 

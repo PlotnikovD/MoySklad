@@ -1,9 +1,7 @@
 package com.example.moysklad.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "storage")
@@ -14,13 +12,6 @@ public class Storage {
     private Long id;
     @Column(name = "name", length = 100)
     private String name;
-
-    @ManyToMany
-    @JoinTable(name = "prod_store",
-            joinColumns = @JoinColumn(name = "storage_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonIgnore
-    private List<Product> products;
 
     public Storage(String name) {
     }

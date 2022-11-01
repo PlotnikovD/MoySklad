@@ -21,13 +21,6 @@ public class Product {
     @Column(name = "last_sale_price")
     private Double lastSalePrice;
 
-    @ManyToMany
-    @JoinTable(name = "prod_store",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "storage_id"))
-    @JsonIgnore
-    private List<Storage> storages;
-
     public Product() {
     }
 
