@@ -25,16 +25,16 @@ public class DocumentsController {
     public List<DocumentsResponseDto> getAllDocuments(){
         return documentsService.getAll().stream().map(DocumentsResponseDto::new).collect(Collectors.toList());
     }
-    @PostMapping("/create")
+    @PostMapping
     public DocumentsResponseDto createDocument(@Valid @RequestBody DocumentsRequestDto documentsRequestDto){
         return documentsService.createDocument(documentsRequestDto);
     }
-    @PutMapping("/update")
+    @PutMapping
     public Documents updateDocument(@Valid @RequestBody Documents documents){
         documentsService.updateDocuments(documents);
         return documents;
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public List<DocumentsResponseDto> deleteById(@Valid @PathVariable Long id){
         documentsService.deleteDocument(id);
         return documentsService.getAll().stream().map(DocumentsResponseDto::new).collect(Collectors.toList());

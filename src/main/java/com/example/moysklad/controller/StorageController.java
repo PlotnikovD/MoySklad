@@ -33,18 +33,18 @@ public class StorageController {
         return storageService.findAllById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public StorageResponseDto createStorage(@Valid @RequestBody StorageRequestDto storageRequestDto) {
         return storageService.createStorage(storageRequestDto);
     }
 
-    @PutMapping("/update")
+    @PutMapping
     public Storage update(@Valid @RequestBody Storage storage) {
         storageService.updateStorage(storage);
         return storage;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public List<StorageResponseDto> deleteById(@Valid @PathVariable Long id) {
         storageService.deleteStorage(id);
         return storageService.getAll().stream().map(StorageResponseDto::new).collect(Collectors.toList());

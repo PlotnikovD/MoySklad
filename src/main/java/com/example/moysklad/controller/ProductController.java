@@ -30,11 +30,11 @@ public class ProductController {
     public List<ProductResponseDto> getProductByName(@Valid @PathVariable String name) {
         return productService.getAllByName(name).stream().map(ProductResponseDto::new).collect(Collectors.toList());
     }
-    @PostMapping("/create")
+    @PostMapping
     public ProductResponseDto createProduct(@Valid @RequestBody ProductRequestDto productRequestDto) {
         return productService.createProduct(productRequestDto);
     }
-    @PutMapping("/update")
+    @PutMapping
     public Product update(@Valid @RequestBody Product product){
         productService.updateProduct(product);
         return product;
