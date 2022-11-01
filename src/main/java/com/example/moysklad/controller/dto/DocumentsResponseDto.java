@@ -19,7 +19,7 @@ public class DocumentsResponseDto {
 
     @NotBlank(message = "Поле type  не должно быть пустым и иметь значение GET, SELL или TRANSFER.")
     @NotNull
-    //@Size(min = 3, max = 8, message = "Поле type должно иметь значение GET, SELL или TRANSFER.")
+    @Size(min = 3, max = 8, message = "Поле type должно иметь значение GET, SELL или TRANSFER.")
     private final ProductInfoDto.Types type;
 
     public DocumentsResponseDto(Long id, StorageResponseDto firstStorage, StorageResponseDto secondStorage,
