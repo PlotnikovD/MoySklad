@@ -12,7 +12,6 @@ public class ProductInfoDto {
     @Min(value = 0, message = "Поле count должно быть больше 0.")
     private final Integer count;
     @NotBlank(message = "Поле name не должно быть пустым.")
-    //@Size(min = 1, max = 100, message = "Длина поля name должно быть от 1 до 100 символ.")
     private final String name;
     @NotNull(message = "Поле cost не должно быть null.")
     @Min(value = 0, message = "Поле cost должно быть больше 0.")

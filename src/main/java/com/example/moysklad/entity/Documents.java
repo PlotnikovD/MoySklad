@@ -51,6 +51,9 @@ public class Documents implements Serializable {
 
     public Documents(Storage firstStorage, Storage secondStorage, List<ProductInfoDto> info, ProductInfoDto.Types type) {
         this.firstStorage = firstStorage;
+        this.secondStorage = secondStorage;
+        this.info = info;
+        this.type = type;
     }
 
 
